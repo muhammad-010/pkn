@@ -1,15 +1,51 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import slider1 from "../public/Assets/slider1.png";
+import slider2 from "../public/Assets/slider2.png";
+import slider4 from "../public/Assets/slider4.png";
+
+const backgroundImages = [slider1, slider2, slider4];
 
 export default function Hero() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <section id="hero" className="relative h-screen w-full overflow-hidden bg-primary text-primary-foreground flex items-center justify-center">
-            {/* Background Dummy Div */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-black z-0" />
-
-            {/* Optional: Overlay Pattern or Texture (Dummy) */}
-            <div className="absolute inset-0 opacity-20 bg-[url('/dummy-pattern.png')] bg-cover bg-center z-0 mix-blend-overlay" />
+            {/* Background Image */}
+            {/* Background Slideshow */}
+            <div className="absolute inset-0 z-0">
+                <AnimatePresence mode="popLayout">
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.5 }}
+                        className="absolute inset-0"
+                    >
+                        <Image
+                            src={backgroundImages[currentImageIndex]}
+                            alt="Hero Background"
+                            fill
+                            className="object-cover"
+                            priority
+                            placeholder="blur"
+                        />
+                    </motion.div>
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-black/50 z-10" /> {/* Overlay for text readability */}
+            </div>
 
             <div className="container relative z-10 px-4 md:px-6 text-center max-w-5xl mx-auto">
                 <motion.div
