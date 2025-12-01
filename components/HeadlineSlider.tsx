@@ -4,27 +4,33 @@ import React, { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import slider1 from "../public/Assets/slider1.png";
+import slider2 from "../public/Assets/slider2.png";
+import slider3 from "../public/Assets/slider3.png";
+import slider4 from "../public/Assets/slider4.png";
+
 
 const SLIDES = [
     {
         title: "Pesona Alam Papua",
         description: "Surga tropis dengan laut biru jernih, pegunungan megah, dan panorama alam yang tak tertandingi.",
-        color: "from-blue-900",
+        image: slider1,
     },
     {
         title: "Keagungan Pakaian Adat",
         description: "Rok rumbia, koteka, dan hiasan kepala khas Papua menggambarkan identitas dan keunikan budaya setempat.",
-        color: "from-amber-800",
+        image: slider2,
     },
     {
         title: "Tanah Papua yang Kaya",
         description: "Dari emas hingga keanekaragaman hayati, Papua adalah wilayah dengan potensi sumber daya alam luar biasa.",
-        color: "from-emerald-900",
+        image: slider3,
     },
     {
         title: "Budaya yang Hidup dan Berwarna",
         description: "Tarian tradisional, seni ukir, dan ritual adat yang penuh makna mencerminkan kekayaan budaya Papua.",
-        color: "from-purple-900",
+        image: slider4,
     },
 ];
 
@@ -51,12 +57,16 @@ export default function HeadlineSlider() {
                         <div className="flex">
                             {SLIDES.map((slide, index) => (
                                 <div className="flex-[0_0_100%] min-w-0 relative h-[400px] md:h-[500px]" key={index}>
-                                    {/* Dummy Image Placeholder */}
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${slide.color} to-black/80 z-0`} />
-                                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                                        <span className="text-white/10 text-9xl font-bold uppercase tracking-widest select-none">
-                                            Image {index + 1}
-                                        </span>
+                                    {/* Background Image */}
+                                    <div className="absolute inset-0 z-0">
+                                        <Image
+                                            src={slide.image}
+                                            alt={slide.title}
+                                            fill
+                                            className="object-cover"
+                                            priority={index === 0}
+                                        />
+                                        <div className="absolute inset-0 bg-black/40" /> {/* Overlay for text readability */}
                                     </div>
 
                                     {/* Content Overlay */}
