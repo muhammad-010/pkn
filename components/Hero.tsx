@@ -63,7 +63,7 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 >
-                    <p className="text-base md:text-xl lg:text-2xl text-muted-foreground/90 max-w-3xl mx-auto leading-relaxed text-balance">
+                    <p className="text-base md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed text-balance">
                         Memahami akar persoalan Papua hari ini untuk merumuskan arah kebijakan,
                         pembangunan, dan rekonsiliasi yang memperkuat integrasi Indonesia di masa depan.
                     </p>

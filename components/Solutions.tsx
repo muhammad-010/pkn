@@ -1,42 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageCircle, Hammer, HeartHandshake, FileCheck } from "lucide-react";
-
-const SOLUTIONS = [
-    {
-        title: "Dialog & Rekonsiliasi Berkelanjutan",
-        description: "Membangun ruang dialog yang jujur antara pemerintah, tokoh adat, gereja, perempuan Papua, dan generasi muda untuk memulihkan kepercayaan dan menyelesaikan konflik secara damai.",
-        icon: MessageCircle,
-        gradient: "from-blue-500/10 to-blue-500/5",
-        border: "border-blue-200",
-        iconColor: "text-blue-600",
-    },
-    {
-        title: "Pembangunan Inklusif & Berkeadilan",
-        description: "Pemerataan akses pendidikan, kesehatan, infrastruktur, dan pemberdayaan ekonomi agar masyarakat Papua memperoleh manfaat langsung dari kekayaan alamnya sendiri.",
-        icon: Hammer,
-        gradient: "from-amber-500/10 to-amber-500/5",
-        border: "border-amber-200",
-        iconColor: "text-amber-600",
-    },
-    {
-        title: "Pendekatan Keamanan Humanis",
-        description: "Mengutamakan perlindungan warga sipil dan mengurangi pendekatan militeristik. Mengedepankan keamanan berbasis kesejahteraan dan penghormatan hak asasi manusia.",
-        icon: HeartHandshake,
-        gradient: "from-emerald-500/10 to-emerald-500/5",
-        border: "border-emerald-200",
-        iconColor: "text-emerald-600",
-    },
-    {
-        title: "Penguatan Otonomi Khusus yang Transparan",
-        description: "Optimalisasi dana Otsus secara akuntabel dan memperkuat peran pemimpin lokal dalam pengambilan keputusan untuk memastikan pembangunan sesuai kebutuhan masyarakat Papua.",
-        icon: FileCheck,
-        gradient: "from-purple-500/10 to-purple-500/5",
-        border: "border-purple-200",
-        iconColor: "text-purple-600",
-    },
-];
+import Link from "next/link";
+import { SOLUTIONS } from "@/data/solutions";
 
 export default function Solutions() {
     return (
@@ -69,28 +35,33 @@ export default function Solutions() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     {SOLUTIONS.map((sol, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className={`group relative p-8 rounded-2xl border ${sol.border} bg-gradient-to-br ${sol.gradient} hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
-                        >
-                            <div className="flex items-start gap-6">
-                                <div className={`p-3 rounded-xl bg-white shadow-sm ${sol.iconColor} group-hover:scale-110 transition-transform duration-300`}>
-                                    <sol.icon size={32} />
+                        <Link href={`/solutions/${sol.slug}`} key={index} className="block h-full">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className={`group relative p-8 rounded-2xl border ${sol.border} bg-gradient-to-br ${sol.gradient} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full cursor-pointer`}
+                            >
+                                <div className="flex items-start gap-6">
+                                    <div className={`p-3 rounded-xl bg-white shadow-sm ${sol.iconColor} group-hover:scale-110 transition-transform duration-300`}>
+                                        <sol.icon size={32} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                                            {sol.title}
+                                        </h3>
+                                        <p className="text-muted-foreground leading-relaxed mb-4">
+                                            {sol.shortDescription}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                            <span>Klik untuk selengkapnya</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                                        {sol.title}
-                                    </h3>
-                                    <p className="text-muted-foreground leading-relaxed">
-                                        {sol.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </Link>
                     ))}
                 </div>
             </div>
